@@ -22,12 +22,12 @@ class QuizView extends Component {
 
   componentDidMount(){
     $.ajax({
-      url: `/categories`, //TODO: update request URL
+      url: `/categories`, //update request URL
       type: "GET",
       success: (result) => {
         this.setState({ categories: result.categories })
       },
-      error: (error) => {
+      error: () => {
         alert('Unable to load categories. Please try your request again')
       }
     })
@@ -46,7 +46,7 @@ class QuizView extends Component {
     if(this.state.currentQuestion.id) { previousQuestions.push(this.state.currentQuestion.id) }
 
     $.ajax({
-      url: '/quizzes', //TODO: update request URL
+      url: '/quizzes', //update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -64,10 +64,10 @@ class QuizView extends Component {
           previousQuestions: previousQuestions,
           currentQuestion: result.question,
           guess: '',
-          forceEnd: result.question ? false : true
+          forceEnd: !result.question
         })
       },
-      error: (error) => {
+      error: () => {
         alert('Unable to load question. Please try your request again')
       }
     })
@@ -75,7 +75,7 @@ class QuizView extends Component {
 
   submitGuess = (event) => {
     event.preventDefault();
-    const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+    // const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
     const evaluate =  this.evaluateAnswer()
     this.setState({
       numCorrect: !evaluate ? this.state.numCorrect : this.state.numCorrect + 1,
@@ -105,7 +105,7 @@ class QuizView extends Component {
                   return (
                     <div
                       key={id}
-                      value={id}
+                      // value={id}
                       className="play-category"
                       onClick={() => this.selectCategory({type:this.state.categories[id], id})}>
                       {this.state.categories[id]}
@@ -133,7 +133,7 @@ class QuizView extends Component {
   }
 
   renderCorrectAnswer(){
-    const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+    // const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
     const evaluate =  this.evaluateAnswer()
     return(
       <div className="quiz-play-holder">

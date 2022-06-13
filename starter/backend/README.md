@@ -76,28 +76,147 @@ One note before you delve into your tasks: for each endpoint, you are expected t
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 
+## API Documentation
 
-## Review Comment to the Students
+GET `\categories`
+Retrieves all categories
+- *Request parameters:* none
+- *Example response:*
 ```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
+{
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "success": true
+}
 
-Endpoints
-GET '/api/v1.0/categories'
-GET ...
-POST ...
-DELETE ...
+```
 
-GET '/api/v1.0/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
 
+GET `\questions?page=<page_number>`
+Retrieves a paginated list of questions 
+- *Request parameters (optional):* page:int
+- *Example response:*
+ ``` {
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "current_category": null, 
+  "questions": [
+    {
+      "answer": "Maya Angelou", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 5, 
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    },  
+    {
+      "answer": "Tom Cruise", 
+      "category": 4, 
+      "difficulty": 5, 
+      "id": 4, 
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 2
+}
+```
+
+DELETE `/questions/<question_id>`
+Delete an existing question
+- *Request arguments:* question_id:int
+- *Example response:*
+```
+{
+  "deleted": "8", 
+  "success": true
+}
+```
+
+POST `/questions`
+Add a new question
+- *Request body:* {question:string, answer:string, difficulty:int, category:string}
+- *Example response:*
+```
+{
+  "created": 11, 
+  "success": true
+}
+```
+POST `/questions/search`
+Allows search criteria for questions
+- *Request body:* {searchTerm:string}
+- *Example response:*
+```
+{
+  "current_category": null, 
+  "questions": [
+    {
+      "answer": "Waldo", 
+      "category": 5, 
+      "difficulty": 2, 
+      "id": 88, 
+      "question": "Who is hard to find?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 1
+}
+```
+
+GET `/categories/<int:category_id>/questions`
+Retrieves a list of questions for a specified category
+- *Request argument:* category_id:int
+- *Example response:*
+```
+{
+  "current_category": 1, 
+  "questions": [
+    {
+      "answer": "Brazil", 
+      "category": 1, 
+      "difficulty": 3, 
+      "id": 10, 
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    }, 
+    {
+      "answer": "Muhammad Ali", 
+      "category": 1, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }, 
+  ], 
+  "success": true, 
+  "total_questions": 2
+}
+```
+POST `/quizzes`
+Retrieves a random question.
+- *Request body:* {previous_questions: arr, quiz_category: {id:int, type:string}}
+- *Example response*:
+```
+{
+  "question": {
+    "answer": "Apollo 13 ", 
+    "category": 5, 
+    "difficulty": 4, 
+    "id": 2, 
+    "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+  }, 
+  "success": true
+}
 ```
 
 
