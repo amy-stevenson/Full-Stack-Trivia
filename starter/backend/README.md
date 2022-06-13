@@ -79,9 +79,9 @@ One note before you delve into your tasks: for each endpoint, you are expected t
 ## API Documentation
 
 GET `\categories`
-Retrieves all categories
-- *Request parameters:* none
-- *Example response:*
+- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+- Request parameters: none
+- Example response:
 ```
 {
   "categories": {
@@ -99,9 +99,9 @@ Retrieves all categories
 
 
 GET `\questions?page=<page_number>`
-Retrieves a paginated list of questions 
-- *Request parameters (optional):* page:int
-- *Example response:*
+- Fetches a paginated set of questions, a total number of questions, all categories and current category string.
+- Request parameters (optional): page:int
+- Example response:
  ``` {
   "categories": {
     "1": "Science", 
@@ -134,9 +134,9 @@ Retrieves a paginated list of questions
 ```
 
 DELETE `/questions/<question_id>`
-Delete an existing question
-- *Request arguments:* question_id:int
-- *Example response:*
+- Deletes a specified question using the id of the question
+- Request arguments: question_id:int
+- Example response:
 ```
 {
   "deleted": "8", 
@@ -145,9 +145,9 @@ Delete an existing question
 ```
 
 POST `/questions`
-Add a new question
-- *Request body:* {question:string, answer:string, difficulty:int, category:string}
-- *Example response:*
+- Sends a post request in order to add a new question
+- Request body: {question:string, answer:string, difficulty:int, category:string}
+- Example response:
 ```
 {
   "created": 11, 
@@ -155,9 +155,9 @@ Add a new question
 }
 ```
 POST `/questions/search`
-Allows search criteria for questions
-- *Request body:* {searchTerm:string}
-- *Example response:*
+- Sends a post request in order to search for a specific question by search term
+- Request body: {searchTerm:string}
+- Example response:
 ```
 {
   "current_category": null, 
@@ -176,9 +176,9 @@ Allows search criteria for questions
 ```
 
 GET `/categories/<int:category_id>/questions`
-Retrieves a list of questions for a specified category
-- *Request argument:* category_id:int
-- *Example response:*
+- Fetches questions for a cateogry specified by id request argument
+- Request argument: category_id:int
+- Example response:
 ```
 {
   "current_category": 1, 
@@ -203,9 +203,9 @@ Retrieves a list of questions for a specified category
 }
 ```
 POST `/quizzes`
-Retrieves a random question.
-- *Request body:* {previous_questions: arr, quiz_category: {id:int, type:string}}
-- *Example response*:
+- Sends a post request in order to get the next question
+- Request body: {previous_questions: arr, quiz_category: {id:int, type:string}}
+- Example response:
 ```
 {
   "question": {
